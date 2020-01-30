@@ -147,6 +147,14 @@ class Instructor extends Lambdasian {
   grade(student, subject) {
     return `${student.name} receives a perfect score on ${subject}`;
   }
+  grading(student) {
+    if (Math.floor(Math.random() * 10) > 5) {
+      student.grade += Math.floor(Math.random() * 100);
+    } else {
+      student.grade -= Math.floor(Math.random() * 100);
+    }
+    return student.grade;
+  }
 }
 
 /*
@@ -170,6 +178,7 @@ class Student extends Lambdasian {
     this.previousBackground = attributes.previousBackground;
     this.className = attributes.className;
     this.favSubjects = attributes.favSubjects;
+    this.grade = attributes.grade;
   }
   listSubjects() {
     return `Loving ${this.favSubjects}`;
@@ -179,6 +188,13 @@ class Student extends Lambdasian {
   }
   sprintChallenge(subject) {
     return `${this.name} has begun sprint challenge on ${subject}`;
+  }
+  graduate () {
+    if (this.grade > 70) {
+      return 'Graduate!!!';
+    } else {
+      return 'Retake your tests';
+    }
   }
 }
 
@@ -212,11 +228,32 @@ class ProjectManager extends Instructor {
 /*
   STRETCH PROBLEM (no tests!)
     - Extend the functionality of the Student by adding a prop called grade and setting it equal to a number between 1-100.
-    - Now that our students have a grade build out a method on the Instructor (this will be used by _BOTH_ instructors and PM's) that will randomly add or subtract points to a student's grade. _Math.random_ will help.
+    - Now that our students have a grade build out a method on the Instructor (this will be used by _BOTH_ instructors and PM's) 
+    that will randomly add or subtract points to a student's grade. _Math.random_ will help.
     - Add a graduate method to a student.
       + This method, when called, will check the grade of the student and see if they're ready to graduate from Lambda School
       + If the student's grade is above a 70% let them graduate! Otherwise go back to grading their assignments to increase their score.
 */
+
+console.log("Testing stretch:");
+
+const student1 = new Student({
+  name: "Joe",
+  age: 32,
+  location: "USA",
+  previousBackground: "art",
+  className: "CS132",
+  favSubjects: ['HTML', 'CSS', 'JS'],
+  grade: 99
+});
+
+const instructor1 = new Instructor({
+  name: "Oleg"
+});
+
+instructor1.grading(student1);
+console.log(student1.grade);
+console.log(student1.graduate());
 
 ///////// END OF CHALLENGE /////////
 ///////// END OF CHALLENGE /////////
